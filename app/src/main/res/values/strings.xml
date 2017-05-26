@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BluetoothTest</string>
+    <string name="dl_directory">cn.bluetooth</string>
+    <string name="dl_file_extension">.txt</string>
+</resources>

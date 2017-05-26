@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_connecd_mac"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:text="已连接:"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_above="@+id/tv_result"
+        android:layout_below="@+id/tv_connecd_mac"
+        android:layout_width="match_parent"
+        android:id="@+id/RecyclerView"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_above="@+id/et_send"
+        android:padding="10dp"
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:text="返回："
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_toLeftOf="@+id/btn_send"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/et_send"
+        android:layout_width="match_parent"
+        android:hint="send"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_alignParentRight="true"
+        android:id="@+id/btn_send"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:text="发送"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
