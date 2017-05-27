@@ -313,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
 
     }
 
+    /*设置uuid*/
     public void setNotifi(String service, String notifi, String write) {
         if (mBLE != null && GattService.size() != 0) {
             mBLE.displayGattServices(GattService, service, notifi);

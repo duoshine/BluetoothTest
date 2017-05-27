@@ -56,9 +56,6 @@ public class BluetoothLeClass {
     private static final long SCAN_PERIOD = 5000;
     private boolean mScanning = false;
     private Handler mHandler = new Handler();
-    private BluetoothGattCharacteristic notifyCharacteristic;
-    private BluetoothGattCharacteristic bleGattCharacteristic;
-
 
     public interface OnConnectListener {
         public void onConnect(BluetoothGatt gatt);
@@ -217,15 +214,15 @@ public class BluetoothLeClass {
                     if (localBluetoothGattCharacteristic.getUuid().toString().equalsIgnoreCase(NOTIFICATION_UUID)) {
                         mBluetoothGatt.setCharacteristicNotification(localBluetoothGattCharacteristic, true);
                     //notifiction默认是关闭的  需要设置0x01打开
-                       /* List<BluetoothGattDescriptor> descriptors = localBluetoothGattCharacteristic.getDescriptors();
+                        List<BluetoothGattDescriptor> descriptors = localBluetoothGattCharacteristic.getDescriptors();
 						for (int i = 0; i < descriptors.size(); i++) {
 							if (descriptors.get(i).getUuid().toString().equals(DISENABLE)) {
 								BluetoothGattDescriptor bluetoothGattDescriptor = descriptors.get(i);
 								bluetoothGattDescriptor.setValue(new byte[]{0x01});
 								mBluetoothGatt.writeDescriptor(bluetoothGattDescriptor);
 							}
-						}*/
-                        BluetoothGattDescriptor descriptor = localBluetoothGattCharacteristic
+						}
+                       /* BluetoothGattDescriptor descriptor = localBluetoothGattCharacteristic
                                 .getDescriptor(UUID.fromString(NOTIFICATION_UUID));
                         if (descriptor == null) {
                             descriptor = new BluetoothGattDescriptor(
@@ -233,9 +230,7 @@ public class BluetoothLeClass {
                                     BluetoothGattDescriptor.PERMISSION_WRITE);
                         }
                         descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-                        mBluetoothGatt.writeDescriptor(descriptor);
-
-
+                        mBluetoothGatt.writeDescriptor(descriptor);*/
                         break;
                     }
                 }
