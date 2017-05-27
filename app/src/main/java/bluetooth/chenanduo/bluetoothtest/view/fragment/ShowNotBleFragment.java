@@ -53,7 +53,6 @@ public class ShowNotBleFragment extends BaseFragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefreshLayout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-
         //一秒换一种颜色  一秒一种颜色是安卓强制  时间无法自定义
         swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE);
         //下拉刷新的监听事件

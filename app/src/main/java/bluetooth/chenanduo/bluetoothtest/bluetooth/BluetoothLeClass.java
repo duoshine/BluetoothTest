@@ -265,18 +265,22 @@ public class BluetoothLeClass {
             Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
             return false;
         }
+
         //直接打开蓝牙
-        mBluetoothAdapter.enable();
+//        mBluetoothAdapter.enable();
         return true;
     }
 
     //确定蓝牙是否打开 如果没有打开提示用户打开蓝牙 如果已经是打开状态则不会开启
-    public void isEnabled(Context context) {
+    public boolean  isEnabled(Context context) {
         if (mBluetoothAdapter == null) {
-            return;
+            return false;
         }
-        if (!mBluetoothAdapter.isEnabled()) {
+        if (mBluetoothAdapter.isEnabled()) {
+            return true;
+        } else {
             mBluetoothAdapter.enable();
+            return false;
         }
     }
 

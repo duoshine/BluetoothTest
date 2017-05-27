@@ -98,8 +98,19 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
         mBLE.setOnDisconnectListener(this);//ble断开连接回调
         mBLE.setOnDataAvailableListener(this);//从蓝牙设备读取信息回调
         mBLE.setOnServiceDiscoverListener(this);//从蓝牙设备读取信息回调
-        //开始扫描设备
-        startScan();
+        /*判断蓝牙是否在开启状态 如果已经开启就直接扫描 如果没有开启则开启，等待3秒后开始扫描*/
+        if (mBLE.isEnabled(MainActivity.this)) {
+            //开始扫描设备
+            startScan();
+        } else {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //开始扫描设备
+                    startScan();
+                }
+            }, 3000);
+        }
     }
 
     public void startScan() {
