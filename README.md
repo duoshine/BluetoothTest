@@ -5,7 +5,7 @@
 
 ![](https://github.com/duoshine/BluetoothTest/raw/master/img/1_1.png)  
 
-* 点击连接后，会开始连蓝牙设备，这一过程持续5秒，连接成功跳转测试指令界面
+* 点击连接后，会开始连蓝牙设备，这一过程最多持续5秒，五秒如果没有连接上就属于连接超时，不过我觉得3秒应该都是用户等待的极限了。。。连接成功跳转测试指令界面
 
 ![](https://github.com/duoshine/BluetoothTest/raw/master/img/2_2.png) 
 
