@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import bluetooth.chenanduo.bluetoothtest.view.fragment.ShowNotBleFragment;
 public class MainActivity extends AppCompatActivity implements BluetoothLeClass.OnConnectListener, BluetoothLeClass.OnDisconnectListener, BluetoothLeClass.OnDataAvailableListener, BluetoothLeClass.OnServiceDiscoverListener, BluetoothAdapter.LeScanCallback, ViewPager.OnPageChangeListener {
 
     private static final int REQUEST_PERMISSION_ACCESS_LOCATION = 2;
+    private static final int REQUEST_ENABLE_BT = 3;
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -103,13 +105,19 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
             //开始扫描设备
             startScan();
         } else {
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //开始扫描设备
-                    startScan();
-                }
-            }, 3000);
+            /*提示开启蓝牙*/
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ENABLE_BT) {
+            //开始扫描设备
+            startScan();
         }
     }
 
@@ -144,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
             }
         }
     }
+
 
     //申请权限回调方法 处理用户是否授权
     @Override
