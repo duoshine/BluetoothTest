@@ -448,7 +448,6 @@ public class BluetoothLeClass {
      * @param mLeScanCallback
      */
     public void stopScanDevices(LeScanCallback mLeScanCallback) {
-
         if (mScanning) {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
             //扫描蓝牙设备对bluetoothAdapter来说是一个非常消耗资源的工作 停止扫描时 应该要取消这一过程

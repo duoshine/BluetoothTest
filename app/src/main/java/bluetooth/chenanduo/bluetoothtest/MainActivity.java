@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
         }
     }
 
-
     //申请权限回调方法 处理用户是否授权
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[],
@@ -292,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
     private List<BluetoothGattService> GattService;
 
     /*遍历所有uuid  由用户选择*/
-    private List displayGattServices(List<BluetoothGattService> gattServices) {
+   /* private List displayGattServices(List<BluetoothGattService> gattServices) {
         service_uuid.clear();
         this.GattService = gattServices;
         for (int i = 0; i < gattServices.size(); i++) {
@@ -300,6 +299,35 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
             List<BluetoothGattCharacteristic> characteristics = gattServices.get(i).getCharacteristics();
             for (int i1 = 0; i1 < characteristics.size(); i1++) {
                 service_uuid.add(characteristics.get(i1).getUuid().toString());
+            }
+        }
+        return service_uuid;
+    }*/
+
+    private List displayGattServices(List<BluetoothGattService> gattServices) {
+        String propertiesName = "";
+        service_uuid.clear();
+        this.GattService = gattServices;
+        for (int i = 0; i < gattServices.size(); i++) {
+            service_uuid.add(i + "服务:" + gattServices.get(i).getUuid().toString());
+
+            List<BluetoothGattCharacteristic> characteristics = gattServices.get(i).getCharacteristics();
+            for (int i1 = 0; i1 < characteristics.size(); i1++) {
+                int properties = characteristics.get(i1).getProperties();
+                if ((properties & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                    //                    propertiesName += "Read:";//3
+                    propertiesName += "读";//3
+                }
+                if ((properties & BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
+                    //                    propertiesName += "Write:";//2
+                    propertiesName += "写";//2
+                }
+                if ((properties & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+                    //                    propertiesName += "Notify:";//1
+                    propertiesName += "通";//1
+                }
+                service_uuid.add(i + propertiesName + characteristics.get(i1).getUuid().toString());
+                propertiesName = "";
             }
         }
         return service_uuid;

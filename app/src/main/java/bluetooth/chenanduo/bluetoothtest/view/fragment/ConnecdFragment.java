@@ -82,9 +82,9 @@ public class ConnecdFragment extends BaseFragment implements View.OnClickListene
             public void OnItemClick(final int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 //                builder.setIcon(R.drawable.iv8);
-                builder.setTitle("选择UUID");
+                builder.setTitle("使用该UUID作为Write_UUID");
 
-                final String items[] = {"service", "notifi", "write"};
+                final String items[] = {"Write"};
                 /**
                  * 第二个参数：指定被选中的项
                  */
@@ -94,17 +94,37 @@ public class ConnecdFragment extends BaseFragment implements View.OnClickListene
                         String uuid = mDatas.get(position);
                         //消失
                         dialog.dismiss();
-                        if (which == 0) {
-                            service = uuid;
-                        } else if (which == 1) {
-                            notifi = uuid;
-                        } else if (which == 2) {
-                            write = uuid;
+                        Logger.d("uuid：" + uuid);
+                        for (int i = 0; i < mDatas.size(); i++) {
+                            String type = uuid.substring(0, 1);
+                            //同一个服务下的uuid
+                            if (mDatas.get(i).substring(0, 1).equals(type)) {
+                                Logger.d("----"+mDatas.get(i));
+                                //找到读写和服务的
+                                String typeUuid = mDatas.get(i).substring(1, 4);
+                                if (typeUuid.contains("服务")) {
+                                    service = mDatas.get(i).substring(4, mDatas.get(i).length());
+                                }
+                                if (typeUuid.contains("读写通")) {
+                                    write = mDatas.get(i).substring(4, mDatas.get(i).length());
+                                    notifi = mDatas.get(i).substring(4, mDatas.get(i).length());
+                                } else if (typeUuid.contains("读写")) {
+                                    write = mDatas.get(i).substring(3, mDatas.get(i).length());
+                                } else if (typeUuid.contains("写")) {
+                                    write = mDatas.get(i).substring(2, mDatas.get(i).length());
+                                } else if (typeUuid.contains("通")) {
+                                    notifi = mDatas.get(i).substring(2, mDatas.get(i).length());
+                                }
+                            }
                         }
+                        Logger.d("service:"+service+"\r\n"+"notifi:"+notifi+"\r\n"+"write:"+write);
                         if (service != null && notifi != null && write != null) {
                             //如果三个都不为空就设置通知
                             mActivity.setNotifi(service, notifi, write);
                         }
+                        service = null;
+                        write = null;
+                        notifi = null;
                     }
                 });
                 //记得要show
@@ -135,7 +155,7 @@ public class ConnecdFragment extends BaseFragment implements View.OnClickListene
     }
 
     public void setResult(String text) {
-        tv_result.setText("返回："+text);
+        tv_result.setText("返回：" + text);
     }
 
     public void clean() {
