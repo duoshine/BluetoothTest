@@ -234,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
     public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
         byte[] value = characteristic.getValue();
         final String result = Util.Bytes2HexString(value);
+        Logger.d("设备返回:"+result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -310,7 +311,6 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
         this.GattService = gattServices;
         for (int i = 0; i < gattServices.size(); i++) {
             service_uuid.add(i + "服务:" + gattServices.get(i).getUuid().toString());
-
             List<BluetoothGattCharacteristic> characteristics = gattServices.get(i).getCharacteristics();
             for (int i1 = 0; i1 < characteristics.size(); i1++) {
                 int properties = characteristics.get(i1).getProperties();
@@ -326,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothLeClass.
                     //                    propertiesName += "Notify:";//1
                     propertiesName += "通";//1
                 }
-                service_uuid.add(i + propertiesName + characteristics.get(i1).getUuid().toString());
+                service_uuid.add(i + propertiesName +":"+ characteristics.get(i1).getUuid().toString());
                 propertiesName = "";
             }
         }

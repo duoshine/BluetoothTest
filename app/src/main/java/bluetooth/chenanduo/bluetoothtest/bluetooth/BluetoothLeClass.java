@@ -274,7 +274,7 @@ public class BluetoothLeClass {
         if (mBluetoothAdapter.isEnabled()) {
             return true;
         } else {
-            mBluetoothAdapter.enable();
+
             return false;
         }
     }
@@ -402,8 +402,7 @@ public class BluetoothLeClass {
         //设置数据内容
         characteristic.setValue(Util.HexString2Bytes(string));
         //往蓝牙模块写入数据
-        mBluetoothGatt.writeCharacteristic(characteristic);
-        return true;
+        return mBluetoothGatt.writeCharacteristic(characteristic);
     }
 
     /*

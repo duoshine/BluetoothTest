@@ -32,18 +32,24 @@ public class ConnecdAdapter extends RecyclerView.Adapter<ConnecdAdapter.MyViewHo
         String temp = list.get(position);
         String text = temp.substring(1, temp.length());
         String properties = temp.substring(1, 4);
-        if (text.startsWith("服务")) {
-            holder.tv_uuid.setText(text);
-        } else if (properties.contains("读写通")) {
-            holder.tv_uuid.setText("        " + "Read/Write/Notifi:" + text.substring(3, text.length()));
-        } else if (properties.contains("读写")) {
-            holder.tv_uuid.setText("        " + "Read/Write:" + text.substring(2, text.length()));
-        } else if (properties.contains("读")) {
-            holder.tv_uuid.setText("        " + "Read:" + text.substring(1, text.length()));
-        } else if (properties.contains("写")) {
-            holder.tv_uuid.setText("        " + "Write:" + text.substring(1, text.length()));
-        } else if (properties.contains("通")) {
-            holder.tv_uuid.setText("        " + "Notifi:" + text.substring(1, text.length()));
+        if (properties.startsWith("服务")) {
+            holder.tv_uuid.setText("服务:" + text.substring(3, text.length()));
+        } else if (properties.startsWith("读写通")) {
+            holder.tv_uuid.setText("    read/write/notifi" + text.substring(3, text.length()));
+        } else if (properties.startsWith("读写")) {
+            holder.tv_uuid.setText("    read/write" + text.substring(2, text.length()));
+        }else if (properties.startsWith("读通")) {
+            holder.tv_uuid.setText("    read/notifi" + text.substring(2, text.length()));
+        }else if (properties.startsWith("写通")) {
+            holder.tv_uuid.setText("    write/notifi" + text.substring(2, text.length()));
+        }else if (properties.startsWith("读")) {
+            holder.tv_uuid.setText("    read" + text.substring(1, text.length()));
+        }else if (properties.startsWith("写")) {
+            holder.tv_uuid.setText("    write" + text.substring(1, text.length()));
+        } else if (properties.startsWith("通")) {
+            holder.tv_uuid.setText("    notifi" + text.substring(1, text.length()));
+        } else {
+            holder.tv_uuid.setText("    write no response" + text.substring(0, text.length()));
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
